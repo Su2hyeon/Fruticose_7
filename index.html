@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fruticose_7</title>
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/range.css">
+
+    <script src="js/dist/p5.js"></script>
+    <script src="js/dist/opentype.min.js"></script>
+    <script src="js/dist/differential_growth.js"></script> 
+    <script>
+      (function() {
+        // 만약 differential_growth.js가 전역에 클래스를 노출하지 않았다면
+        // window 객체에 수동으로 연결해줍니다. (이전 단계에서 js파일 수정을 안했을 경우 대비)
+        if (typeof World === 'undefined' && window.p5 && p5.instance) {
+          // 엔진 내부에서 클래스를 찾아오는 시도
+        }
+      })();
+    </script>
+
+    <script type="module">
+        import { VERT, BLUR_THRESH } from './js/shader.js';
+        window.VERT = VERT;
+        window.BLUR_THRESH = BLUR_THRESH;
+    </script>
+    <script src="js/setting.js"></script>
+    <script src="js/controls.js"></script>
+
+
+
+    <script>
+    window.plausible = window.plausible || function () {(plausible.q = plausible.q || []).push(arguments)}, plausible.init = plausible.init || function (i) {plausible.o = i || {}};
+    plausible.init({
+      endpoint: "/api/event"
+    })
+    </script>
+    <script>
+        // 기존 슬라이더(Amount) 요소를 찾아 값을 전역 변수에 할당
+        const amountSlider = document.querySelector('#random input'); // 기존 구조에 따라 선택자 조정 필요
+        if (amountSlider) {
+            amountSlider.addEventListener('input', (e) => {
+                window.amountValue = parseFloat(e.target.value);
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class = "Placeholder">
+      <div class = "Placeholder__text"> Write Something</div>
+    </div>
+    
+    <div class = "Header">
+      <div class = "Logo"></div>
+
+    <div id="font-gallery" class="FontGallery">
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/BodoniModa_7pt-ExtraBoldItalic.ttf">
+        <div class="preview-box">
+          <img src="assets/img/Bodoni Moda.png" alt="Bodoni Icon">
+        </div>
+        <span class="font-name">Bodoni Moda</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/Bodoni_Ornaments.ttf">
+        <div class="preview-box">
+          <img src="assets/img/Bodoni Ornaments.png" alt="Bodoni Ornaments Icon">
+        </div>
+        <span class="font-name">Bodoni Ornaments</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/IBMPlexMono-Bold.otf">
+        <div class="preview-box">
+          <img src="assets/img/IBM Plex Mono Bold.png" alt="IBM Plex Mono Bold Icon">
+        </div>
+        <span class="font-name">IBM Plex Mono Bold</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/SF-Compact-Rounded-Medium.otf">
+        <div class="preview-box">
+          <img src="assets/img/SF Compact Rounded Medium.png" alt="SF Compact Rounded Medium Icon">
+        </div>
+        <span class="font-name">SF Compact Rounded Medium</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/IBMPlexMono-Thin.ttf">
+        <div class="preview-box">
+          <img src="assets/img/IBM Plex Mono Thin.png" alt="IBM Plex Mono Thin Icon">
+        </div>
+        <span class="font-name">IBM Plex Mono Thin</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/Helvetica 95 Black.otf">
+        <div class="preview-box">
+          <img src="assets/img/Helvetica 95 Black.png" alt="Helvetica 95 Black Icon">
+        </div>
+        <span class="font-name">Helvetica 95 Black</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/JosefinSans-Regular.ttf">
+        <div class="preview-box">
+          <img src="assets/img/Josefin Sans Regular.png" alt="Josefin Sans Regular Icon">
+        </div>
+        <span class="font-name">Josefin Sans Regular</span>
+      </div>
+      <div class="font-item" draggable="true" data-font-url="assets/fonts/Autumn Chant.otf">
+        <div class="preview-box">
+          <img src="assets/img/Autumn Chant.png" alt="Autumn Chant Icon">
+        </div>
+        <span class="font-name">Autumn Chant</span>
+      </div>
+    </div>
+
+
+      <div class="Header__right" id="header">
+        <div class="Reset Button">
+            <div class="Reset__text"> </div>
+        </div>
+        </div>
+    </div>
+
+    <div id="Footer" class="Footer">
+      <div class = "Footer__controllers">
+        <div class="Slider-Item"><span>Humidity</span><input type="range" min="0" max="100" value="50" id="slider-1"></div>
+        <div class="Slider-Item"><span>Rotator</span><input type="range" min="0" max="100" value="0" id="slider-2"></div>
+
+        <div class="Slider-Item"><span>Mutate W</span><input type="range" min="0" max="100" value="0" id="slider-mutation-w"></div>
+        <div class="Slider-Item"><span>Mutate H</span><input type="range" min="0" max="100" value="0" id="slider-mutation-h"></div>
+      </div>
+    </div>
+
+</body>
+</html>

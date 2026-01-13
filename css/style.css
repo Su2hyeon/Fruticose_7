@@ -1,0 +1,245 @@
+:root {
+    --font-primary:
+      helvetica, sans-serif;
+  --font-secondary: helvetica, sans-serif;
+  --color-text: #000;
+  --color-background: #fff;
+  --color-inactive: #ddd;
+  --border-radius: 20px;
+  --transition-default: all 100ms ease-in-out;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a,
+.Header,
+canvas {
+    cursor: pointer;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size : 1.2em;
+    line-height: 135%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    margin: 0;
+    padding: 0;
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+body.is-ready .Footer,
+body.is-ready .Header,
+body.is-ready canvas {
+    opacity: 1;
+    visibility: visible;
+}
+
+.Header,
+.Footer {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 240ms ease-in-out;
+}
+
+/*Layout Components*/
+.Header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Header__right {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+}
+
+.Header__right > * {
+    margin-left: 16px;
+}
+
+#font-gallery:not(.is-visible) {
+    display: none !important; /* 기본 숨김 */
+}
+
+#font-gallery.is-visible {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    background: transparent;
+    /* [수정] 배경은 클릭을 통과시켜야 뒤에 있는 로고가 눌립니다 */
+    pointer-events: none !important;
+}
+
+
+.font-item {
+    position: absolute; /* 이 설정이 있어야 nth-child의 top/left가 먹힙니다 */
+    width: 120px; /* 아이템 너비 고정 */
+    text-align: center;
+    cursor: grab;
+    pointer-events: all !important; /* 폰트 변경 가능하게 설정 */
+    z-index: 1001;
+    transition: transform 0.2s ease;
+}
+
+
+.font-name {
+    display: block;
+    margin-top: 5px;
+    font-family: helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: -0.01em; /* 자간 설정 */
+    word-break: break-all; /* 긴 이름 줄바꿈 설정 */
+    max-width: 120px;
+    text-align: center;
+}
+
+.font-item:hover{
+    transform: translateY(-5px);
+}
+
+/* 스크린샷처럼 흩어지게 배치 (예시 좌표) */
+.font-item:nth-child(1) { top: 13%; left: 25%; }
+.font-item:nth-child(2) { top: 13%; left: 65%; }
+.font-item:nth-child(3) { top: 31%; left: 13%; }
+.font-item:nth-child(4) { top: 31%; left: 78%; }
+.font-item:nth-child(5) { top: 50%; left: 6%; }
+.font-item:nth-child(6) { top: 53%; left: 86%; }
+.font-item:nth-child(7) { top: 70%; left: 2%; }
+.font-item:nth-child(8) { top: 73%; left: 90%; }
+
+
+.preview-box img {
+    width: 90%;  /* 상자 너비에 맞게 조절 */
+    height: auto;
+    object-fit: contain;
+}
+
+.font-item .preview-box {
+    width: 70px; /* 박스 크기 조절 */
+    height: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden; 
+    margin: 0 auto 5px auto;
+}
+
+
+.Footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.Footer__controllers {
+    display: flex;
+    justify-content: center;
+    gap: 140px;
+    align-items: center;
+    width: 100%;
+    font-size: 15px;
+}
+
+.Slider-Item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 35px;
+}
+
+.Slider-Item label {
+    font-family: helvetica, sans-serif;
+    font-size: 11px;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+    
+    /* [수정] 이 값을 조절해서 글자를 오른쪽으로 밉니다 */
+    padding-left: 30px; 
+}
+
+/*Logo*/
+.Logo {
+  position: absolute;
+  left: 50%;
+  top: 28px;
+  transform: translateX(-50%);
+  width: 270px;
+  height: 85px;
+  background: url("../img/Fruticose_Logo1.svg") no-repeat;
+  background-size: contain;
+  background-position: center center;
+  z-index: 10; /*다른 요소보다 위에 보이도록 설정 */
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.Logo:hover {
+    transform: translateX(-50%) scale(1.1);
+}
+
+.Logo.active-click {
+    transform: translateX(-50%) scale(1.0) !important;
+}
+
+/*Placeholder */
+.Placeholder {
+    display: none;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    top: 0;
+    right: 0;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 520ms ease-in-out;
+    opacity: 0;
+}
+
+.Placeholder__text {
+    color: rgb(234, 234, 234);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: normal;
+    text-align: center;
+    font-size: 90px;
+}
+
+
+/* State Classes */
+body.show-placeholder .Placeholder {
+  opacity: 1;
+  display: flex;
+}
+
+body canvas {
+  transition: opacity 300ms ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+body.is-zoommed canvas {
+  transform: scale(1.2);
+}
